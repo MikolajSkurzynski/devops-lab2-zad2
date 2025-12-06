@@ -49,6 +49,14 @@ jobs:
       - name: Run Pytest
         env:
           PYTHONPATH: .
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: pytest
+
+      - name: Send failure notification
+        if: failure()
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+          -d "{\"content\":\"🚨 CI Failed: ${{ github.repository }} (${{ github.ref_name }}) [View](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\"}" \
+          $WEBHOOK_URL
 
