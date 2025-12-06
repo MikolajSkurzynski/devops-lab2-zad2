@@ -49,5 +49,6 @@ jobs:
       - name: Run Pytest
         env:
           PYTHONPATH: .
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: pytest
 
