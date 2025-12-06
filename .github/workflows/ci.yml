@@ -44,6 +44,6 @@ jobs:
 
       - name: Run Pytest
         env:
-          PYTHONPATH: src
+          PYTHONPATH: .
         run: pytest
 
